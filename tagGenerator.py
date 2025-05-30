@@ -28,7 +28,6 @@ class PrintTag:
         # -- Filleted edges
         tag = tag.edges("|X").fillet(fillet_radius)
 
-
         # Hole cutout
         hole = cq.Workplane("ZY")
         hole = hole.cylinder(thickness, 0.5 * hole_diameter)
