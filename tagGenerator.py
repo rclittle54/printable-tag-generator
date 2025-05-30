@@ -17,34 +17,26 @@ class PrintTag:
                  font_height: float = 0.5,
                  hole_diameter: float = 0.125,
                  fillet_radius: float = 0.125):
-        self.textString = textString
-        self.width = width
-        self.height = height
-        self.thickness = thickness
-        self.emboss_depth = emboss_depth
-        self.font_height = font_height
-        self.hole_diameter = hole_diameter
-        self.fillet_radius = fillet_radius
 
         # Tag geometry
         # -- Rectangle
         tag = cq.Workplane("ZY")
-        tag = tag.box(self.height, self.width, self.thickness)
+        tag = tag.box(height, width, thickness)
         # -- Semicircle on the left side
-        extracircle = cq.Workplane("ZY").cylinder(self.thickness, 0.5 * self.height).translate((0,-0.5 * self.width,0))
+        extracircle = cq.Workplane("ZY").cylinder(thickness, 0.5 * height).translate((0,-0.5 * width,0))
         tag += extracircle
         # -- Filleted edges
-        tag = tag.edges("|X").fillet(self.fillet_radius)
+        tag = tag.edges("|X").fillet(fillet_radius)
 
 
         # Hole cutout
         hole = cq.Workplane("ZY")
-        hole = hole.cylinder(self.thickness, 0.5 * self.hole_diameter)
+        hole = hole.cylinder(thickness, 0.5 * hole_diameter)
         # -- Move to the old left edge / center of the left circle
-        hole = hole.translate((0, -0.5 * self.width, 0))
+        hole = hole.translate((0, -0.5 * width, 0))
 
         # Text
-        embossed_text = cq.Workplane("YZ").text(self.textString, self.font_height, self.emboss_depth, kind="bold")
+        embossed_text = cq.Workplane("YZ").text(textString, font_height, emboss_depth, kind="bold")
 
         # Cuts
         tag -= hole
