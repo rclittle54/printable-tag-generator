@@ -5,9 +5,11 @@ import cadquery as cq
 from cadquery.func import *
 from cadquery.vis import show
 
+
 class PrintTag:
+    """Definition of the Print Tag model"""
     def __init__(self,
-                 textString: str = "00:00",
+                 textString: str = "<text>",
                  width: float = 2.0,
                  height: float = 1.0,
                  thickness: float = 0.125,
